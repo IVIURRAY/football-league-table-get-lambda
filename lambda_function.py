@@ -5,8 +5,10 @@ import boto3
 
 
 def lambda_handler(event, context):
-    league = event["league"]
-    user = event.get("user")
+    event_body = json.loads(event['body'])
+    print(event_body)
+    league = event_body["league"]
+    user = event_body.get("user")
     s3_bucket = "football-table-predictor-dev"
     s3_key = f"{league}/{f'{user}_table' if user else 'table'}.csv"
     print(f'Looking for: {s3_key}')
